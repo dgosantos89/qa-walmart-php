@@ -1,0 +1,7 @@
+# behat.yml
+
+default:
+    extensions:
+        Behat\MinkExtension:
+            selenium2:
+                wd_host: 172.16.18.32:4444/wd/hub
