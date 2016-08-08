@@ -11,7 +11,7 @@ Funcionalidade: Adiciona produto ao carrinho
         Dado que eu estou em "http://www.walmart.com.br"
         Quando pesquiso pelo item "TV"
         E clico no botão "Procurar"
-        Então o site deverá retornar produtos com o nome "TV"
+        Então a página deverá ter resultados de busca para o termo "TV"
 
     @detalhes
     Cenário: Clicar em uma das TVs do resultado da pesquisa
