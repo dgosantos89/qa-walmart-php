@@ -14,10 +14,6 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
 {
     /**
      * Initializes context.
-     *
-     * Every scenario gets its own context instance.
-     * You can also pass arbitrary arguments to the
-     * context constructor through behat.yml.
      */
     public function __construct()
     {
@@ -29,31 +25,31 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     public function queEuEstouEm($pagina)
     {
         $this->visit($pagina);
-        sleep(10);
     }
 
     /**
-     * @When pesquiso pelo item :arg1
+     * @When pesquiso pelo item :itemBusca
      */
-    public function pesquisoPeloItem($arg1)
+    public function pesquisoPeloItem($itemBusca)
     {
-        throw new PendingException();
+        $this->fillField('suggestion-search', $itemBusca);   
     }
 
     /**
-     * @When clico no botão :arg1
+     * @When clico no botão :botao
      */
-    public function clicoNoBotao($arg1)
+    public function clicoNoBotao($botao)
     {
-        throw new PendingException();
+        $this->pressButton($botao);
     }
 
     /**
-     * @Then o site deverá retornar produtos com o nome :arg1
+     * @Then a página deverá ter resultados de busca para o termo :termoBuscado
      */
-    public function oSiteDeveraRetornarProdutosComONome($arg1)
+    public function aPaginaDeveraTerResultadosDeBuscaParaOTermo($termoBuscado)
     {
-        throw new PendingException();
+        $this->getSession()->wait(3000, 'document.getElementById(\'product-list\')!=null');
+        $this->assertPageContainsText('Resultados de busca para "'. $termoBuscado . '\"');
     }
 
     /**
