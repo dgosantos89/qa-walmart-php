@@ -15,12 +15,12 @@ Funcionalidade: Adiciona produto ao carrinho
 
     @detalhes
     Cenário: Clicar em uma das TVs do resultado da pesquisa
-        Quando clico na TV
-        Então o site deverá exibir os detalhes da TV
+        Quando clico no primeiro produto listado
+        Então a página do produto deverá ser exibida
 
     @carrinho
     Cenário: Adicionar o produto ao carrinho
-        Quando clico no botão "Adicionar ao carrinho"
-        E clico no botão "Continuar"
+        Quando adiciono o produto ao carrinho
+        E clico em "Continuar"
         E clico no carrinho
         Então a TV deverá estar no carrinho

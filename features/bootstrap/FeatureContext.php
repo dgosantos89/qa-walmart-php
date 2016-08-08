@@ -12,6 +12,8 @@ use Behat\Gherkin\Node\TableNode;
  */
 class FeatureContext extends MinkContext implements Context, SnippetAcceptingContext
 {
+    private $tituloProduto;
+
     /**
      * Initializes context.
      */
@@ -25,6 +27,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     public function queEuEstouEm($pagina)
     {
         $this->visit($pagina);
+        $this->getSession()->maximizeWindow();
     }
 
     /**
@@ -48,24 +51,46 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function aPaginaDeveraTerResultadosDeBuscaParaOTermo($termoBuscado)
     {
-        $this->getSession()->wait(3000, 'document.getElementById(\'product-list\')!=null');
+        $this->getSession()->wait(10000, 'document.getElementById(\'product-list\')!=null == true');
         $this->assertPageContainsText('Resultados de busca para "'. $termoBuscado . '\"');
     }
 
     /**
-     * @When clico na TV
+     * @When clico no primeiro produto listado
      */
-    public function clicoNaTv()
+    public function clicoNoPrimeiroProdutoListado()
     {
-        throw new PendingException();
+        $produto = $this->getSession()->getPage()->find('xpath', '//*[@id=\'product-list\']/section/ul/li[1]/section/a/span');
+        $this->tituloProduto = $produto->getText();
+        $produto->click();
     }
 
     /**
-     * @Then o site deverá exibir os detalhes da TV
+     * @Then a página do produto deverá ser exibida
      */
-    public function oSiteDeveraExibirOsDetalhesDaTv()
+    public function aPaginaDoProdutoDeveraSerExibida()
     {
-        throw new PendingException();
+        $this->getSession()->wait(5000);
+        $this->assertPageContainsText($this->tituloProduto);
+    }
+
+    /**
+     * @When adiciono o produto ao carrinho
+     */
+    public function adicionoOProdutoAoCarrinho()
+    {
+        $botao = $this->getSession()->getPage()->find('xpath', '//*[@id=\'buybox-Walmart\']/div[2]/div/div[5]/button');
+        $botao->click();
+    }
+
+    /**
+     * @When clico em :texto
+     */
+    public function clicoEm($texto)
+    {
+        $this->getSession()->wait(5000);
+        $elemento = $this->getSession()->getPage()->find('xpath', '//*[text()="' . $texto . '"]');
+        $elemento->click();
     }
 
     /**
@@ -73,7 +98,8 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function clicoNoCarrinho()
     {
-        throw new PendingException();
+        $carrinho = $this->getSession()->getPage()->find('xpath', '//*[@id=\'site-topbar\']/div[2]/div[1]/a');
+        $carrinho->click();
     }
 
     /**
@@ -81,6 +107,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function aTvDeveraEstarNoCarrinho()
     {
-        throw new PendingException();
+        $this->getSession()->wait(5000, 'document.getElementsByClassName(\'link-description\')!=null == true');
+        $this->assertPageContainsText($this->tituloProduto);        
     }
 }
