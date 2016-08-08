@@ -1,7 +1,8 @@
 # behat.yml
 
 default:
-    extensions:
-        Behat\MinkExtension:
-            selenium2:
-                wd_host: localhost:4444/wd/hub
+  extensions:
+    Behat\MinkExtension:
+        browser_name: 'chrome'
+        selenium2:
+            wd_host: localhost:4444/wd/hub
