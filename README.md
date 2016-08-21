@@ -19,10 +19,37 @@ GET - http://cep.correiocontrol.com.br/1304...
 
 Resposta:
 
-{ bairro: "Jardim Bela Vista", logradouro: "Rua Jundiaí", cep: "15806320", uf: "SP", localidade: "Catanduva"
-
-}
+{ bairro: "Jardim Bela Vista", logradouro: "Rua Jundiaí", cep: "15806320", uf: "SP", localidade: "Catanduva"}
 
 A partir das informações acima, vamos implementar cenários de teste que valide uma chamada com um cep válido e outra com cep inválido para essa API (implemente quantos cenários achar interessante, sempre validando o status code HTTP da resposta).
 
 Validação individualmente de cada campo do JSON de resposta.
+
+Update
+------
+
+Como o projeto Correio Control deixou de ser público, irei utilizar uma API semelhante com código público a [Postmon](http://postmon.com.br/).
+
+A API funciona de maneira parecida, porém o seu retorno é mais completo.
+
+GET - http://api.postmon.com.br/v1/cep/01001001
+
+Resposta:
+
+{  
+  "complemento": "lado par",  
+  "bairro": "Sé",  
+  "cidade": "São Paulo",  
+  "logradouro": "Praça da Sé",  
+  "estado_info": {  
+    "area_km2": "248.222,362",  
+    "codigo_ibge": "35",  
+    "nome": "São Paulo"  
+  },  
+  "cep": "01001001",  
+  "cidade_info": {  
+    "area_km2": "1521,11",  
+    "codigo_ibge": "3550308"  
+  },  
+  "estado": "SP"  
+}  
