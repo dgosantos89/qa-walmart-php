@@ -6,11 +6,12 @@ use Behat\MinkExtension\Context\MinkContext;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
+use GuzzleHttp\Client;
 
 /**
  * Defines application features from the specific context.
  */
-class FeatureContext extends MinkContext implements Context, SnippetAcceptingContext
+class PrimeiroExercicioContext extends MinkContext implements Context, SnippetAcceptingContext
 {
     private $tituloProduto;
 
@@ -52,7 +53,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     public function aPaginaDeveraTerResultadosDeBuscaParaOTermo($termoBuscado)
     {
         $this->getSession()->wait(10000, 'document.getElementById(\'product-list\')!=null == true');
-        $this->assertPageContainsText('Resultados de busca para "'. $termoBuscado . '\"');
+        $this->assertPageContainsText('Resultados de busca para "'. $termoBuscado . ' "');
     }
 
     /**

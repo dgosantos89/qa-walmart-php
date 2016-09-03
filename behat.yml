@@ -1,6 +1,13 @@
 # behat.yml
 
 default:
+  suites:
+    primeiroExercicio:
+      paths:    [ %paths.base%/features/PrimeiroExercicio.feature ]
+      contexts: [ PrimeiroExercicioContext ]
+    segundoExercicio:
+      paths:    [ %paths.base%/features/SegundoExercicio.feature ]
+      contexts: [ SegundoExercicioContext ]
   extensions:
     Behat\MinkExtension:
         browser_name: 'chrome'
