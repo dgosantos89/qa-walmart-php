@@ -13,6 +13,7 @@ use GuzzleHttp\Client;
  */
 class SegundoExercicioContext extends MinkContext implements Context, SnippetAcceptingContext
 {
+    public $client;
     public $apiResponse;
 
     /**
@@ -20,6 +21,11 @@ class SegundoExercicioContext extends MinkContext implements Context, SnippetAcc
      */
     public function __construct()
     {
+        $this->client = new Client([
+            'base_uri' => 'http://api.postmon.com.br/v1/cep/',
+            'timeout'    => 2.0,
+            'exceptions' => false
+        ]);
     }
 
     /**
@@ -28,12 +34,7 @@ class SegundoExercicioContext extends MinkContext implements Context, SnippetAcc
      */
     public function queRequisitoUmaBuscaPeloCep($numeroCep = "")
     {
-        $client = new GuzzleHttp\Client();
-        $client = new Client([
-            'base_uri' => 'http://api.postmon.com.br/v1/cep/',
-            'timeout'  => 2.0,
-        ]);
-        $this->apiResponse = $client->request('GET', $numeroCep, ['http_errors' => false]);
+        $this->apiResponse = $this->client->request('GET', $numeroCep, ['http_errors' => false]);
     }
 
     /**
@@ -42,7 +43,6 @@ class SegundoExercicioContext extends MinkContext implements Context, SnippetAcc
     public function devoTerOStatus($statusCode)
     {
         \PHPUnit_Framework_Assert::assertEquals($statusCode, $this->apiResponse->getStatusCode());
-
     }
 
     /**
